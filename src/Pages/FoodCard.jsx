@@ -15,6 +15,7 @@ const FoodCard = ({ food }) => {
     shortDescription,
   } = food || {};
 
+
   return (
     <div className=" h-[500px] flex flex-col justify-center items-center">
       <img

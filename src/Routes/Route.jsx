@@ -10,6 +10,7 @@ import AddedAFood from "../Pages/ProfilePages/AddedAFood";
 import MyAddedFoods from "../Pages/ProfilePages/MyAddedFoods";
 import MyOrderFoods from "../Pages/ProfilePages/MyOrderFoods";
 import SingleFood from "../Pages/SingleFood";
+import PurchaseFood from "../Pages/ProfilePages/PurchaseFood";
 
 const routes = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const routes = createBrowserRouter([
       {
         path: "single-food/:id",
         element: <SingleFood />,
+      },
+      {
+        path: "purchase/:id",
+        element: <PurchaseFood />,
       },
     ],
   },

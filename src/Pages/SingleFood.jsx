@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 const SingleFood = () => {
   const axiosMethod = useAxios();
@@ -8,7 +9,7 @@ const SingleFood = () => {
   const [food, setFood] = useState([]);
 
   useEffect(() => {
-    axiosMethod.get(`/foods${id}`).then((res) => {
+    axios.get(`http://localhost:7000/foods/${id}`).then((res) => {
       setFood(res.data);
       console.log(res.data);
     });
@@ -46,7 +47,9 @@ const SingleFood = () => {
             <p>Made By: {food?.addManager}</p>
           </div>
           <div className="dark:text-gray-100">
-            <button className="btn btn-primary">Order Food</button>
+            <Link to={`/purchase/${food?._id}`} className="btn btn-primary">
+              Order Food
+            </Link>
           </div>
         </div>
       </div>
