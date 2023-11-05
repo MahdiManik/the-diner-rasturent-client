@@ -24,9 +24,9 @@ const Navbar = () => {
           </svg>
         </label>
       </div>
-      <div className="flex-1 flex justify-start items-center gap-2 px-2 mx-2">
+      <div className="flex-1 flex justify-start items-center  px-2 mx-2">
         <img
-          className="w-12 rounded-full h-12"
+          className="w-12 rounded-full h-12 p-1"
           src="https://logo.com/image-cdn/images/kts928pd/production/7ab5def0ab1dad26a90bc35cb7eed9e628f7f201-430x430.png?w=640&q=72"
           alt=""
         />
@@ -46,7 +46,7 @@ const Navbar = () => {
             className={({ isActive }) =>
               isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
             }
-            to={"/about"}
+            to={"/foods"}
           >
             All Foods
           </NavLink>
@@ -54,7 +54,7 @@ const Navbar = () => {
             className={({ isActive }) =>
               isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
             }
-            to={"/contact"}
+            to={"/blog"}
           >
             Blog
           </NavLink>

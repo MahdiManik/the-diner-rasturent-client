@@ -1,11 +1,5 @@
-
-
 const Foods = () => {
-	return (
-		<div>
-			All foods page
-		</div>
-	);
+  return <div>All foods page</div>;
 };
 
 export default Foods;
