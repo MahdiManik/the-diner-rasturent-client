@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 const FoodCard = ({ food }) => {
   const {
+    _id,
     name,
     image,
     addManager,
@@ -27,7 +28,9 @@ const FoodCard = ({ food }) => {
         <p className="text-center">Category: {category}</p>
         <p className="text-center">Price: ${price}</p>
         <p className="text-center  mb-8">Quantity: {quantity}</p>
-        <Link to={'/single-food'} className="btn btn-primary w-full">Show details</Link>
+        <Link to={`/single-food/${_id}`} className="btn btn-primary w-full">
+          Show details
+        </Link>
       </div>
     </div>
   );

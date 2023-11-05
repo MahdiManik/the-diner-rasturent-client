@@ -8,7 +8,6 @@ const Foods = () => {
   useEffect(() => {
     axios.get("http://localhost:7000/foods").then((res) => {
       setFoods(res.data);
-      console.log(res.data);
     });
   }, []);
 

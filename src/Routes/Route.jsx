@@ -9,6 +9,7 @@ import Register from "../Pages/Register";
 import AddedAFood from "../Pages/ProfilePages/AddedAFood";
 import MyAddedFoods from "../Pages/ProfilePages/MyAddedFoods";
 import MyOrderFoods from "../Pages/ProfilePages/MyOrderFoods";
+import SingleFood from "../Pages/SingleFood";
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
         element: <Foods />,
       },
       {
+        path: "blog",
+        element: <Blog />,
+      },
+      {
         path: "added-a-food",
         element: <AddedAFood />,
       },
@@ -37,8 +42,8 @@ const routes = createBrowserRouter([
         element: <MyOrderFoods />,
       },
       {
-        path: "blog",
-        element: <Blog />,
+        path: "single-food/:id",
+        element: <SingleFood />,
       },
     ],
   },
