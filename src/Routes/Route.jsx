@@ -1,12 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../Layouts/MainLayout";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import Home from "../Pages/Home";
+import App from "../App";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
-    children: [],
+    element: <App></App>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+    ],
   },
 ]);
 
-export default routes
+export default routes;

@@ -24,7 +24,14 @@ const Navbar = () => {
           </svg>
         </label>
       </div>
-      <div className="flex-1 font-bold text-2xl px-2 mx-2">The Diner</div>
+      <div className="flex-1 flex justify-start items-center gap-2 px-2 mx-2">
+        <img
+          className="w-12 rounded-full h-12"
+          src="https://logo.com/image-cdn/images/kts928pd/production/7ab5def0ab1dad26a90bc35cb7eed9e628f7f201-430x430.png?w=640&q=72"
+          alt=""
+        />
+        <h3 className="text-3xl font-bold ">The Diner</h3>
+      </div>
       <div className="flex-none hidden lg:block">
         <div className="flex gap-4 ">
           <NavLink
@@ -41,7 +48,7 @@ const Navbar = () => {
             }
             to={"/about"}
           >
-            About
+            All Foods
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -49,7 +56,7 @@ const Navbar = () => {
             }
             to={"/contact"}
           >
-            Contact
+            Blog
           </NavLink>
 
           <NavLink
