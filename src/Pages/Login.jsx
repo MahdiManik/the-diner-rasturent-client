@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAuth from "../Hooks/UseAuth";
 
 const Login = () => {
   const { user, Login } = useAuth();
@@ -38,7 +38,7 @@ const Login = () => {
           <div className="flex-[1] mb-6 h-[600px] rounded-md overflow-hidden ">
             <img
               className="w-full h-full object-cover"
-              src="https://media.istockphoto.com/id/486766885/photo/sign-in.jpg?s=1024x1024&w=is&k=20&c=4vCFwjDdHBDENAEEhpE-xbyFW-y1nXcowGFGMcHK9L4="
+              src="https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg"
               alt=""
             />
           </div>
