@@ -15,18 +15,19 @@ const FoodCard = ({ food }) => {
   } = food || {};
 
   return (
-    <div className="border-2 border-primary  h-[500px] flex flex-col rounded-[15px] overflow-hidden transition-all hover:scale-105  hover:shadow-2xl group">
-      <img className="w-full h-60" src={image} alt="" />
-      <div className="w-full  flex-1 flex justify-center items-center">
-        <h1 className="text-2xl font-semibold">{name}</h1>
-      </div>
-      <div className="h-[200px] flex-[2] flex flex-col justify-between bg-white rounded-[12px] p-[15px] transition-all">
-        <div className="h-[130px] text-xl text-center flex items-center">
-        </div>
-          <p className="text-center text-2xl mb-2">{category}</p>
-        <p className="text-center text-2xl mb-2">{price}</p>
-        <p className="text-center text-2xl mb-2">{quantity}</p>
-        <button className="btn btn-primary w-full">Show details</button>
+    <div className=" h-[500px] flex flex-col justify-center items-center">
+      <img
+        className="w-full h-60 border-2 border-primary overflow-hidden transition-all hover:scale-105"
+        src={image}
+        alt=""
+      />
+      <div className=" w-full flex-[0.4] text-lg flex justify-center items-center"></div>
+      <h1 className="text-center font-semibold">{name}</h1>
+      <div className="h-32 flex-[2] flex flex-col justify-between  p-[15px] transition-all">
+        <p className="text-center">Category: {category}</p>
+        <p className="text-center">Price: ${price}</p>
+        <p className="text-center  mb-8">Quantity: {quantity}</p>
+        <Link to={'/single-food'} className="btn btn-primary w-full">Show details</Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 const MainLayout = ({ children }) => {
   return (
@@ -18,6 +19,7 @@ const MainLayout = ({ children }) => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
+        <Sidebar></Sidebar>
       </div>
     </div>
   );

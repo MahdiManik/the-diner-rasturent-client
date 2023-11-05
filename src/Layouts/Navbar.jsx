@@ -32,14 +32,16 @@ const Navbar = () => {
       </div>
       <div className="flex-1 flex justify-start items-center  px-2 mx-2">
         <img
-          className="w-12 rounded-full h-12 p-1"
+          className="w-12 rounded-full h-12 p-2"
           src="https://logo.com/image-cdn/images/kts928pd/production/7ab5def0ab1dad26a90bc35cb7eed9e628f7f201-430x430.png?w=640&q=72"
           alt=""
         />
-        <h3 className="text-3xl font-bold ">The Diner</h3>
+        <h3 className="text-2xl font-bold ">
+          The<span className="text-primary">-Diner</span>
+        </h3>
       </div>
-      <div className="flex-none hidden lg:block">
-        <div className="flex gap-4 ">
+      <div className="flex-none hidden lg:block mr-20">
+        <div className="flex gap-4 justify-center ">
           <NavLink
             className={({ isActive }) =>
               isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
@@ -81,6 +83,44 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      {user && (
+        <div className="dropdown dropdown-end ">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src="https://avatars.githubusercontent.com/u/114717482?v=4" />
+            </div>
+          </label>
+          <div
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow bg-base-100 rounded-box w-52"
+          >
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
+              }
+              to={"/added-a-food"}
+            >
+              Add Food
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
+              }
+              to={"/my-added-foods"}
+            >
+              My Added
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "btn btn-sm btn-primary" : "btn btn-ghost btn-sm"
+              }
+              to={"/my-order-foods"}
+            >
+              My Order
+            </NavLink>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

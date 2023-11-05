@@ -6,6 +6,9 @@ import Foods from "../Pages/Foods";
 import Blog from "../Pages/Blog";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import AddedAFood from "../Pages/ProfilePages/AddedAFood";
+import MyAddedFoods from "../Pages/ProfilePages/MyAddedFoods";
+import MyOrderFoods from "../Pages/ProfilePages/MyOrderFoods";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +23,18 @@ const routes = createBrowserRouter([
       {
         path: "foods",
         element: <Foods />,
+      },
+      {
+        path: "added-a-food",
+        element: <AddedAFood />,
+      },
+      {
+        path: "my-added-foods",
+        element: <MyAddedFoods />,
+      },
+      {
+        path: "my-order-foods",
+        element: <MyOrderFoods />,
       },
       {
         path: "blog",

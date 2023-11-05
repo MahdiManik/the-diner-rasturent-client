@@ -1,0 +1,142 @@
+[
+  {
+    "category": "Appetizers",
+    "foodName": "Bruschetta",
+    "price": 7.99
+  },
+  {
+    "category": "Appetizers",
+    "foodName": "Mozzarella Sticks",
+    "price": 6.49
+  },
+  {
+    "category": "Appetizers",
+    "foodName": "Spinach and Artichoke Dip",
+    "price": 8.99
+  },
+  {
+    "category": "Appetizers",
+    "foodName": "Calamari",
+    "price": 9.99
+  },
+  {
+    "category": "Salads",
+    "foodName": "Caesar Salad",
+    "price": 7.49
+  },
+  {
+    "category": "Salads",
+    "foodName": "Greek Salad",
+    "price": 8.99
+  },
+  {
+    "category": "Salads",
+    "foodName": "Caprese Salad",
+    "price": 9.99
+  },
+  {
+    "category": "Salads",
+    "foodName": "Cobb Salad",
+    "price": 10.99
+  },
+  {
+    "category": "Main Courses",
+    "foodName": "Pasta Carbonara",
+    "price": 12.99
+  },
+  {
+    "category": "Main Courses",
+    "foodName": "Chicken Alfredo",
+    "price": 14.49
+  },
+  {
+    "category": "Main Courses",
+    "foodName": "Grilled Salmon",
+    "price": 16.99
+  },
+  {
+    "category": "Main Courses",
+    "foodName": "Rib-Eye Steak",
+    "price": 18.99
+  },
+  {
+    "category": "Burgers and Sandwiches",
+    "foodName": "Classic Burger",
+    "price": 9.99
+  },
+  {
+    "category": "Burgers and Sandwiches",
+    "foodName": "Grilled Chicken Sandwich",
+    "price": 8.99
+  },
+  {
+    "category": "Burgers and Sandwiches",
+    "foodName": "Veggie Burger",
+    "price": 7.99
+  },
+  {
+    "category": "Burgers and Sandwiches",
+    "foodName": "Philly Cheesesteak",
+    "price": 11.99
+  },
+  {
+    "category": "Pizza",
+    "foodName": "Margherita Pizza",
+    "price": 10.49
+  },
+  {
+    "category": "Pizza",
+    "foodName": "Pepperoni Pizza",
+    "price": 11.49
+  },
+  {
+    "category": "Pizza",
+    "foodName": "Vegetarian Pizza",
+    "price": 9.99
+  },
+  {
+    "category": "Pizza",
+    "foodName": "Hawaiian Pizza",
+    "price": 12.99
+  },
+  {
+    "category": "Desserts",
+    "foodName": "Tiramisu",
+    "price": 6.99
+  },
+  {
+    "category": "Desserts",
+    "foodName": "Chocolate Fondue",
+    "price": 8.49
+  },
+  {
+    "category": "Desserts",
+    "foodName": "New York Cheesecake",
+    "price": 7.99
+  },
+  {
+    "category": "Desserts",
+    "foodName": "Fruit Sorbet",
+    "price": 5.99
+  },
+  {
+    "category": "Beverages",
+    "foodName": "Wine",
+    "price": 18.99
+  },
+  {
+    "category": "Beverages",
+    "foodName": "Cocktails",
+    "price": 9.99
+  },
+  {
+    "category": "Beverages",
+    "foodName": "Sodas and Soft Drinks",
+    "price": 2.99
+  },
+  {
+    "category": "Beverages",
+    "foodName": "Coffee and Tea",
+    "price": 3.99
+  }
+]

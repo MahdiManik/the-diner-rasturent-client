@@ -4,9 +4,11 @@ import MainLayout from "./Layouts/MainLayout";
 function App() {
   return (
     <>
-      <MainLayout>
-        <Outlet></Outlet>
-      </MainLayout>
+      <div className="font-lora">
+        <MainLayout>
+          <Outlet></Outlet>
+        </MainLayout>
+      </div>
     </>
   );
 }

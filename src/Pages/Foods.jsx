@@ -14,13 +14,11 @@ const Foods = () => {
 
   return (
     <>
-      <div className="mt-10">
-        <div title="Foods">
-       
-        </div>
+      <div className="mt-10 ">
+        <div title="Foods"></div>
       </div>
       <div className="mb-64">
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-4 w-full max-w-[1200px] mx-auto">
           {foods.map((food) => (
             <FoodCard key={food._id} food={food}></FoodCard>
           ))}
