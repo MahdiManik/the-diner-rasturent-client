@@ -1,3 +1,5 @@
+import Banner from "./Banner";
+
 const Home = () => {
   return (
     <div className="w-full max-w-[1200px] mx-auto px-6">
@@ -26,6 +28,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <Banner></Banner>
     </div>
   );
 };

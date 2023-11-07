@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const FoodCard = ({ food }) => {
-  const {
-    _id,
-    name,
-    image,
-    addManager,
-    category,
-    email,
-    foodOrigin,
-    orderCount,
-    price,
-    quantity,
-    shortDescription,
-  } = food || {};
-
+  const { foodId, name, image, category, price, quantity } = food || {};
+ 
 
   return (
     <div className=" h-[500px] flex flex-col justify-center items-center">
@@ -29,12 +18,16 @@ const FoodCard = ({ food }) => {
         <p className="text-center">Category: {category}</p>
         <p className="text-center">Price: ${price}</p>
         <p className="text-center  mb-8">Quantity: {quantity}</p>
-        <Link to={`/single-food/${_id}`} className="btn btn-primary w-full">
+        <Link to={`/single-food/${foodId}`} className="btn btn-primary w-full">
           Show details
         </Link>
       </div>
     </div>
   );
+};
+
+FoodCard.propTypes = {
+  food: PropTypes.object,
 };
 
 export default FoodCard;

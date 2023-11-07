@@ -10,7 +10,9 @@ import AddedAFood from "../Pages/ProfilePages/AddedAFood";
 import MyAddedFoods from "../Pages/ProfilePages/MyAddedFoods";
 import MyOrderFoods from "../Pages/ProfilePages/MyOrderFoods";
 import SingleFood from "../Pages/SingleFood";
-import PurchaseFood from "../Pages/ProfilePages/PurchaseFood";
+import PurchaseFood from "../Pages/PurchaseFood";
+import Banner from "../Pages/Banner";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "banner/:foodId",
+        element: <Banner />,
+      },
+      {
         path: "foods",
         element: <Foods />,
       },
@@ -32,23 +38,43 @@ const routes = createBrowserRouter([
       },
       {
         path: "added-a-food",
-        element: <AddedAFood />,
+        element: (
+          <PrivateRoute>
+            <AddedAFood />
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-added-foods",
-        element: <MyAddedFoods />,
+        element: (
+          <PrivateRoute>
+            <MyAddedFoods />
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-order-foods",
-        element: <MyOrderFoods />,
+        element: (
+          <PrivateRoute>
+            <MyOrderFoods />
+          </PrivateRoute>
+        ),
       },
       {
         path: "single-food/:id",
-        element: <SingleFood />,
+        element: (
+          <PrivateRoute>
+            <SingleFood />
+          </PrivateRoute>
+        ),
       },
       {
         path: "purchase/:id",
-        element: <PurchaseFood />,
+        element: (
+          <PrivateRoute>
+            <PurchaseFood />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/UseAuth";
+import useAxios from "../Hooks/useAxios";
 
 const Login = () => {
-  const { user, Login } = useAuth();
+  const { Login } = useAuth();
+  const axiosMethod = useAxios();
   const navigate = useNavigate(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -14,11 +16,18 @@ const Login = () => {
 
     const toastId = toast.loading("");
     try {
-      await Login(email, password);
-      console.log(email, password);
-      console.log("logged in", user);
-      toast.success("Successfully Logged!", { id: toastId });
-      navigate("/");
+      await Login(email, password).then((res) => {
+        console.log(email, password);
+        const loggedUser = res.user;
+        console.log(loggedUser);
+        const user = { email };
+        console.log(user);
+        axiosMethod.post("/jwt", user).then((res) => {
+          console.log(res.data);
+        });
+        toast.success("Successfully Logged!", { id: toastId });
+        navigate("/");
+      });
     } catch (err) {
       console.log(err);
       toast.error(err.message, { id: toastId });

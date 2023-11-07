@@ -1,37 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useAxios from "../../Hooks/useAxios";
+import useAxios from "../Hooks/useAxios";
 //import Swal from "sweetalert2";
-import useAuth from "../../Hooks/UseAuth";
+import useAuth from "../Hooks/UseAuth";
 
 const PurchaseFood = () => {
-  const { user } = useAuth;
+  const { user } = useAuth();
   const axiosMethod = useAxios();
   const { id } = useParams();
 
-  const [food, setFood] = useState([]);
-
-  const handlePurchase = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const buy = form.buy.value;
-    const category = form.category.value;
-    const quantity = form.quantity.value;
-    const taste = form.taste.value;
-    const details = form.details.value;
-    const photo = form.photo.value;
-    const foodValue = {
-      name,
-      buy,
-      category,
-      quantity,
-      taste,
-      details,
-      photo,
-    };
-    console.log(foodValue);
-  };
+  const [food, setFood] = useState({});
 
   useEffect(() => {
     axiosMethod.get(`/foods/${id}`).then((res) => {
@@ -39,6 +17,39 @@ const PurchaseFood = () => {
       console.log(res.data);
     });
   }, [axiosMethod, id]);
+
+  const { foodId, name, image, addManager, orderCount, quantity } = food || {};
+
+  const handleOrder = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const bEmail = user?.email;
+    const category = form.category.value;
+    const bName = user?.displayName;
+    const price = form.price.value;
+    const date = form.price.value;
+    const foodValue = {
+      foodId,
+      name,
+      bName,
+      category,
+      quantity,
+      bEmail,
+      price,
+      date,
+      image,
+      orderCount,
+      addManager,
+    };
+    console.log(foodValue);
+
+    axiosMethod.post("/my-order", foodValue).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        alert("order completed");
+      }
+    });
+  };
 
   return (
     <div className=" p-20">
@@ -49,7 +60,7 @@ const PurchaseFood = () => {
         of using Lorem Ipsum is that it has a more-or-less normal distribution
         of letters, <br /> as opposed to using Content here.
       </p>
-      <form onSubmit={handlePurchase}>
+      <form onSubmit={handleOrder}>
         <div className="form-control grid grid-rows-1 md:grid-cols-2 gap-8 w-max-6xl mx-auto font-sans">
           <div>
             <label className="label ">Food Name</label>
@@ -68,7 +79,7 @@ const PurchaseFood = () => {
               <input
                 type="text"
                 defaultValue={food?.price}
-                name="photo"
+                name="price"
                 placeholder="Enter food price"
                 className="input input-bordered font-sans"
               />
@@ -86,10 +97,11 @@ const PurchaseFood = () => {
             </label>
           </div>
           <div>
-            <label className="label ">quantity</label>
+            <label className="label ">Food quantity</label>
             <label className="input-group input-group-vertical ">
               <input
                 type="text"
+                defaultValue={1}
                 name="quantity"
                 placeholder="Enter Food quantity"
                 className="input input-bordered"
@@ -122,7 +134,7 @@ const PurchaseFood = () => {
         <label className="input-group input-group-vertical ">
           <input
             type="date"
-            name="email"
+            name="date"
             placeholder="Enter Order Date"
             className="input input-bordered"
           />
