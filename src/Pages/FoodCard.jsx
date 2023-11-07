@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 const FoodCard = ({ food }) => {
   const { foodId, name, image, category, price, quantity } = food || {};
- 
 
   return (
     <div className=" h-[500px] flex flex-col justify-center items-center">

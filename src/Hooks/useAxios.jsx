@@ -1,10 +1,33 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useAuth from "./UseAuth";
 
 const axiosMethod = axios.create({
   baseURL: "http://localhost:7000",
   withCredentials: true,
 });
 const useAxios = () => {
+  const navigate = useNavigate();
+  const { logOut, isLoading } = useAuth();
+  useEffect(() => {
+    axiosMethod.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+
+      (error) => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          logOut();
+          if (isLoading) {
+            return <progress className="progress w-56"></progress>;
+          }
+
+          navigate("/login");
+        }
+      }
+    );
+  }, [logOut, navigate, isLoading]);
   return axiosMethod;
 };
 

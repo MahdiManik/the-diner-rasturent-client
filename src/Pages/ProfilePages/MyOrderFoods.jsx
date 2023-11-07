@@ -1,16 +1,35 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import { AiFillDelete } from "react-icons/ai";
+import useAuth from "../../Hooks/UseAuth";
+
 const MyOrderFoods = () => {
   const axiosMethod = useAxios();
   const [orders, setOrders] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    axiosMethod("/my-order").then((res) => {
+    axiosMethod(`/my-order?email=${user?.email}`).then((res) => {
       console.log(res.data);
       setOrders(res.data);
     });
-  }, [axiosMethod]);
+  }, [axiosMethod, user?.email]);
+
+  const handleDelete = (id) => {
+    const proceed = confirm("Are you sure you want to delete?");
+    if (proceed) {
+      axiosMethod.delete(`my-order/${id}`).then((res) => {
+        console.log(res.data);
+        if (res.data.deletedCount > 0) {
+          alert("Deleted successfully");
+
+          // Remove the deleted order from the state
+          const updatedOrders = orders.filter((order) => order?._id !== id);
+          setOrders(updatedOrders);
+        }
+      });
+    }
+  };
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-6">
@@ -47,11 +66,14 @@ const MyOrderFoods = () => {
                     </div>
                   </div>
                 </td>
-                <td>{order?.bName}</td>
+                <td>{order?.addManager}</td>
                 <td>{order?.date}</td>
                 <td>${order?.price}</td>
                 <th>
-                  <button className="btn btn-ghost font-bold text-3xl">
+                  <button
+                    onClick={() => handleDelete(order?._id)}
+                    className="btn btn-ghost font-bold text-3xl"
+                  >
                     <AiFillDelete />
                   </button>
                 </th>
@@ -60,13 +82,13 @@ const MyOrderFoods = () => {
           ))}
 
           {/* foot */}
-          <tfoot>
+          <tfoot className="bg-white text-black">
             <tr>
-              <th></th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th>Food Owner</th>
+              <th>Order Date</th>
+              <th>Price</th>
+              <th>Order Delete</th>
             </tr>
           </tfoot>
         </table>

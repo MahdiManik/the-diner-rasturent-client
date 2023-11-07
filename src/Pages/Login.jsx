@@ -1,15 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/UseAuth";
 import useAxios from "../Hooks/useAxios";
+import Swal from "sweetalert2";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-  const { Login } = useAuth();
+  const { Login, googleLogin } = useAuth();
   const axiosMethod = useAxios();
-  const navigate = useNavigate(null);
+  const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const location = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,12 +29,30 @@ const Login = () => {
           console.log(res.data);
         });
         toast.success("Successfully Logged!", { id: toastId });
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       });
     } catch (err) {
       console.log(err);
       toast.error(err.message, { id: toastId });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        console.log(result.user);
+        Swal.fire({
+          title: "Great job!",
+          text: "Sign-in successful.",
+          imageUrl:
+            "https://images.pexels.com/photos/5898313/pexels-photo-5898313.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "Welcome image",
+        });
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((err) => console.error(err.message));
   };
 
   return (
@@ -85,8 +106,7 @@ const Login = () => {
                   <div className="form-control mt-6">
                     <button
                       type="submit"
-                      className="flex justify-center items-center gap-2 mt-auto hover:text-white
-			hover:bg-[#041e42] border-2 py-2 px-6 text-[#041e42] rounded-xl border-[#041e42]"
+                      className="flex justify-center items-center gap-2 mt-auto btn btn-primary "
                     >
                       Login
                     </button>
@@ -95,8 +115,7 @@ const Login = () => {
                 <p className="pb-8 px-6 text-[#041e42] bg-white">
                   Do Not have an account?
                   <Link
-                    className="ml-2 mt-auto hover:text-white
-				hover:bg-[#041e42] border-2 py-2 px-6 text-[#041e42] rounded-xl border-[#041e42]"
+                    className="ml-2 mt-auto btn btn-primary"
                     to={"/register"}
                   >
                     Register
@@ -104,9 +123,10 @@ const Login = () => {
                 </p>
                 <div className=" flex justify-center items-center bg-white">
                   <button
-                    className="flex items-center gap-2 mt-auto hover:text-white
-			  hover:bg-[#041e42] border-2 py-2 px-6 text-[#041e42] rounded-xl border-[#041e42]"
+                    onClick={handleGoogleLogin}
+                    className="flex items-center gap-2 px-8 mt-auto btn btn-primary"
                   >
+                    <span className="text-3xl"><FcGoogle></FcGoogle></span>
                     <p className="font-bold text-2xl"></p> Login with google
                   </button>
                 </div>

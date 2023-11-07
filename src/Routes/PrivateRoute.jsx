@@ -3,15 +3,15 @@ import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../Hooks/UseAuth";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
   const location = useLocation();
-  if (loading) {
+  if (isLoading) {
     return <progress className="progress w-56"></progress>;
   }
-  if (user?.email) {
+  if (user) {
     return children;
   }
-  return <Navigate state={location.pathname} to={"/login"}></Navigate>;
+  return <Navigate state={location.pathname} to="/login"></Navigate>;
 };
 
 PrivateRoute.propTypes = {

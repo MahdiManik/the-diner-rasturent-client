@@ -100,8 +100,7 @@ const Register = () => {
                   <div className="form-control mt-6">
                     <button
                       type="submit"
-                      className="flex justify-center items-center gap-2 mt-auto hover:text-white
-			  hover:bg-[#041e42] border-2 py-2 px-6 text-[#041e42] rounded-xl border-[#041e42]"
+                      className="flex justify-center items-center gap-2 mt-auto btn btn-primary"
                     >
                       Register
                     </button>
@@ -111,7 +110,7 @@ const Register = () => {
                   Already have an account?
                   <Link
                     className="ml-2 mt-auto hover:text-white
-				  hover:bg-[#041e42] border-2 py-2 px-6 text-[#041e42] rounded-xl border-[#041e42]"
+					btn btn-primary"
                     to={"/login"}
                   >
                     Please Login
