@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import { AiFillDelete } from "react-icons/ai";
 import useAuth from "../../Hooks/UseAuth";
+import Swal from "sweetalert2";
 
 const MyOrderFoods = () => {
   const axiosMethod = useAxios();
@@ -10,25 +11,36 @@ const MyOrderFoods = () => {
 
   useEffect(() => {
     axiosMethod(`/my-order?email=${user?.email}`).then((res) => {
-      console.log(res.data);
       setOrders(res.data);
     });
   }, [axiosMethod, user?.email]);
 
   const handleDelete = (id) => {
-    const proceed = confirm("Are you sure you want to delete?");
-    if (proceed) {
-      axiosMethod.delete(`my-order/${id}`).then((res) => {
-        console.log(res.data);
-        if (res.data.deletedCount > 0) {
-          alert("Deleted successfully");
+    axiosMethod.delete(`my-order/${id}`).then((res) => {
+      if (res.data.deletedCount > 0) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Remove the deleted item from the orders list
+            const updatedOrders = orders.filter((order) => order._id !== id);
+            setOrders(updatedOrders);
 
-          // Remove the deleted order from the state
-          const updatedOrders = orders.filter((order) => order?._id !== id);
-          setOrders(updatedOrders);
-        }
-      });
-    }
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your order has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -48,30 +60,28 @@ const MyOrderFoods = () => {
             </tr>
           </thead>
           {orders.map((order) => (
-            <tbody key={order?._id}>
+            <tbody key={order._id}>
               {/* row 1 */}
               <tr className="bg-white text-black">
                 <td>
                   <div className="flex items-center ">
                     <div className="avatar">
                       <div className="mask mask-decagon mr-2  w-20 h-20">
-                        <img src={order?.image} alt="The-Diner food" />
+                        <img src={order.image} alt="The-Diner food" />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{order?.name}</div>
-                      <div className="text-sm opacity-50">
-                        {order?.category}
-                      </div>
+                      <div className="font-bold">{order.name}</div>
+                      <div className="text-sm opacity-50">{order.category}</div>
                     </div>
                   </div>
                 </td>
-                <td>{order?.addManager}</td>
-                <td>{order?.date}</td>
-                <td>${order?.price}</td>
+                <td>{order.addManager}</td>
+                <td>{order.date}</td>
+                <td>${order.price}</td>
                 <th>
                   <button
-                    onClick={() => handleDelete(order?._id)}
+                    onClick={() => handleDelete(order._id)}
                     className="btn btn-ghost font-bold text-3xl"
                   >
                     <AiFillDelete />

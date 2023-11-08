@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const FoodCard = ({ food }) => {
-  const { foodId, name, image, category, price, quantity } = food || {};
+  const { foodId, name, image, category, price, quantity, orderCount } =
+    food || {};
 
   return (
     <div className=" h-[500px] flex flex-col justify-center items-center">
@@ -16,7 +17,8 @@ const FoodCard = ({ food }) => {
       <div className="h-32 flex-[2] flex flex-col justify-between  p-[15px] transition-all">
         <p className="text-center">Category: {category}</p>
         <p className="text-center">Price: ${price}</p>
-        <p className="text-center  mb-8">Quantity: {quantity}</p>
+        <p className="text-center">Order: {orderCount}</p>
+        <p className="text-center mb-6">Quantity: {quantity}</p>
         <Link to={`/single-food/${foodId}`} className="btn btn-primary w-full">
           Show details
         </Link>

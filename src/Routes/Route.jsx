@@ -25,7 +25,7 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "banner/:foodId",
+        path: "banner",
         element: <Banner />,
       },
       {

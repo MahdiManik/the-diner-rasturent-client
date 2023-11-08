@@ -18,15 +18,17 @@ const PurchaseFood = () => {
     });
   }, [axiosMethod, id]);
 
-  const { foodId, name, image, addManager, orderCount, quantity } = food || {};
+  const { _id, foodId, name, image, addManager, orderCount, quantity } =
+    food || {};
 
   const handleOrder = (event) => {
     event.preventDefault();
     const form = event.target;
-    const email = user?.email;
+    const email = form.email.value;
     const category = form.category.value;
     const price = form.price.value;
     const date = form.date.value;
+    const orderQuantity = form.orderQuantity.value;
     const foodValue = {
       foodId,
       name,
@@ -38,31 +40,63 @@ const PurchaseFood = () => {
       image,
       orderCount,
       addManager,
+      orderQuantity,
     };
+
     console.log(foodValue);
-	const updatedValue = {
-        
-	};
 
-    axiosMethod.post("/my-order", foodValue).then((res) => {
+    if (email === food?.email) {
+      return Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: "The food you added cannot be bought by you.",
+      });
+    }
+    if (food.quantity > 0 && food.orderCount >= 0) {
+      const updates = {
+        orderCount: orderCount + 1,
+        quantity: quantity - orderQuantity,
+      };
 
-      
-      if (res.data.insertedId) {
-        Swal.fire({
-          icon: "success",
-          title: "welcome",
-          text: "Your food added successfully!",
+      axiosMethod
+        .post("/my-order", foodValue)
+        .then((res) => {
+          if (res.data.insertedId) {
+            console.log(res.data);
+
+            setFood({ ...food, ...updates });
+
+            axiosMethod
+              .patch(`/foods/${_id}`, updates)
+              .then(() => {})
+              .catch((error) => {
+                console.log(error);
+              });
+            return Swal.fire({
+              title: "Good job",
+              text: "This food item added on order page",
+              icon: "success",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }
-    });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: "This food item is out of stock.",
+      });
+    }
   };
+
+
 
   return (
     <div className=" p-20">
       <h2 className="text-4xl font-bold text-center ">Food Order Page</h2>
-      <p className=" text-center  p-10 font-sans">
-      
-      </p>
+      <p className=" text-center  p-10 font-sans"></p>
       <form onSubmit={handleOrder}>
         <div className="form-control grid grid-rows-1 md:grid-cols-2 gap-8 w-max-6xl mx-auto font-sans">
           <div>
@@ -105,7 +139,7 @@ const PurchaseFood = () => {
               <input
                 type="text"
                 defaultValue={1}
-                name="quantity"
+                name="orderQuantity"
                 placeholder="Enter Food quantity"
                 className="input input-bordered"
               />
