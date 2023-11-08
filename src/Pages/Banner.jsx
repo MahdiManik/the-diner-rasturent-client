@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
-import useAuth from "../Hooks/UseAuth";
 import BannerCard from "./BannerCard";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
-  const { user } = useAuth();
   const axiosMethod = useAxios();
   const [topFoods, setTopFoods] = useState([]);
 
@@ -15,7 +13,7 @@ const Banner = () => {
       .then((res) => {
         setTopFoods(res.data);
       });
-  }, [axiosMethod, user]);
+  }, [axiosMethod]);
 
   return (
     <>

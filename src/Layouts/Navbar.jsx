@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../Hooks/UseAuth";
+import { useEffect, useState } from "react";
+import useAxios from "../Hooks/useAxios";
 
 const Navbar = () => {
-  const { user, logOut, currentUser } = useAuth();
+  const { user, logOut } = useAuth();
+
+  const [users, setUsers] = useState({});
+  const axiosMethod = useAxios();
+  useEffect(() => {
+    axiosMethod.get(`/users/${user?.email}`).then((res) => {
+      setUsers(res.data);
+    });
+  }, [axiosMethod, user]);
+  //  console.log(users);
 
   const handleLogout = () => {
     logOut();
@@ -87,7 +98,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end ">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src={currentUser?.photoURL} />
+              <img src={users?.photo} />
             </div>
           </label>
           <div
