@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 
 import useAxios from "../Hooks/useAxios";
@@ -22,13 +20,6 @@ const AllFoodItems = () => {
     });
   }, [axiosMethod]);
 
-  const handleItemsPerPage = (e) => {
-    const value = parseInt(e.target.value);
-    setItemsPerPage(value);
-    setCurrentPage(0);
-    // console.log(value);
-  };
-
   const handlePrevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
@@ -50,7 +41,40 @@ const AllFoodItems = () => {
   }, [axiosMethod, currentPage, itemsPerPage]);
 
   return (
-    <div className="w-full max-w-[1250px] px-[25px] mx-auto">
+    <div className="w-full max-w-[1250px]  px-[25px] mx-auto">
+      <div
+        className="hero h-[500px]"
+        style={{
+          backgroundImage:
+            "url(https://images.pexels.com/photos/5794766/pexels-photo-5794766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+        }}
+      >
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-lg">
+            <h1 className="mb-5 text-5xl font-bold">Welcome to The-Diner</h1>
+            <p className="mb-5">
+              At The-Diner, were dedicated to serving you the finest culinary
+              delights that will tantalize your taste buds. were here to make
+              your dining experience unforgettable. Join us in exploring the
+              world of flavors and discovering your new favorite dishes. Bon
+              appétit!
+            </p>
+            <div className="mt-8">
+              <div className="form-control ">
+                <div className="">
+                  <input
+                    type="text"
+                    placeholder="Search Food with food category"
+                    className="input input-bordered w-full"
+                  />
+                  <button className="btn btn-primary mt-5">Search Food</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <h2 className="text-center text-4xl font-bold mt-8">
         Choose your favorite food
       </h2>
@@ -90,17 +114,6 @@ const AllFoodItems = () => {
         >
           Next
         </button>
-        <select
-          value={itemsPerPage}
-          onChange={handleItemsPerPage}
-          name=""
-          id=""
-        >
-          <option value="5">5</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   signOut,
   getAuth,
+  updateProfile,
 } from "firebase/auth";
 import axios from "axios";
 
@@ -34,6 +35,16 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  const profileUpdate = (name, email, photo) => {
+    console.log(name, email, photo);
+    setIsLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+      email: email,
+    });
+  };
+
   const logOut = () => {
     setIsLoading(true);
     signOut(auth);
@@ -56,7 +67,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [user?.email]);
 
   const values = {
     user,
@@ -64,6 +75,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     Login,
     googleLogin,
+    profileUpdate,
     logOut,
   };
 

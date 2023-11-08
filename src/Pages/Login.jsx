@@ -7,11 +7,12 @@ import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-  const { Login, googleLogin } = useAuth();
+  const { user, Login, googleLogin, profileUpdate } = useAuth();
   const axiosMethod = useAxios();
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const photo = user?.photoURL;
   const location = useLocation();
 
   const handleLogin = async (e) => {
@@ -40,6 +41,9 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
+        profileUpdate(name, photo, email).then((result) =>
+          console.log("profile updated", result)
+        );
         console.log(result.user);
         Swal.fire({
           title: "Great job!",
@@ -126,7 +130,9 @@ const Login = () => {
                     onClick={handleGoogleLogin}
                     className="flex items-center gap-2 px-8 mt-auto btn btn-primary"
                   >
-                    <span className="text-3xl"><FcGoogle></FcGoogle></span>
+                    <span className="text-3xl">
+                      <FcGoogle></FcGoogle>
+                    </span>
                     <p className="font-bold text-2xl"></p> Login with google
                   </button>
                 </div>

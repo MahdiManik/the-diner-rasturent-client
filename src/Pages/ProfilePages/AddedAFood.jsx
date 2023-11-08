@@ -1,19 +1,50 @@
 import { useState } from "react";
 import useAuth from "../../Hooks/UseAuth";
+import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const AddedAFood = () => {
-  const { user } = useAuth;
+  const axiosMethod = useAxios();
+  const { user } = useAuth();
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [timeSlot, setTimeSlot] = useState("");
-  const [address, setAddress] = useState("");
+  const [image, setImage] = useState("");
+  const [origin, setOrigin] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [category, setCategory] = useState("");
+  const [addedBy, setAddedBy] = useState("");
+  //  const [email, setEmail] = useState("");
+  const email = user?.email;
+  const [orderCount, setOrderCount] = useState("");
+  const [price, setPrice] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { user, name, email, date, timeSlot, address };
+    const data = {
+      name,
+      image,
+      origin,
+      quantity,
+      category,
+      price,
+      shortDescription,
+      addedBy,
+      orderCount,
+      email,
+    };
     console.log(data);
+
+    axiosMethod.post("/add-food", data).then((res) => {
+      if (res.data.insertedId) {
+        console.log(res.data);
+        return Swal.fire({
+          title: "Good job",
+          text: "This food item added on order page",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -46,48 +77,109 @@ const AddedAFood = () => {
             </div>
             <div className="form-control">
               <label className="label">
+                <span className="label-text">Origin</span>
+              </label>
+              <input
+                type="origin"
+                placeholder="origin"
+                className="input input-bordered"
+                required
+                onBlur={(e) => setOrigin(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Image</span>
+              </label>
+              <input
+                placeholder="Image"
+                className="input input-bordered"
+                required
+                onBlur={(e) => setImage(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">category</span>
+              </label>
+              <input
+                placeholder="category"
+                type="category"
+                className="input input-bordered"
+                required
+                onBlur={(e) => setCategory(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">quantity</span>
+              </label>
+              <input
+                placeholder="quantity"
+                type="quantity"
+                className="input input-bordered"
+                required
+                onBlur={(e) => setQuantity(e.target.value)}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Price</span>
+              </label>
+              <input
+                placeholder="price"
+                required
+                type="price"
+                className="input input-bordered"
+                onBlur={(e) => setPrice(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">orderCount</span>
+              </label>
+              <input
+                placeholder="orderCount"
+                required
+                type="orderCount"
+                className="input input-bordered"
+                onBlur={(e) => setOrderCount(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">addedBy</span>
+              </label>
+              <input
+                required
+                defaultValue={user?.displayName}
+                readOnly
+                type="addedBy"
+                className="input input-bordered"
+                onBlur={(e) => setAddedBy(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
+                required
+                defaultValue={user?.email}
+                readOnly
                 type="email"
-                placeholder="email"
                 className="input input-bordered"
-                required
-                onBlur={(e) => setEmail(e.target.value)}
-              />
+                //onBlur={(e) => setEmail(e.target.value)}
+              ></input>
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Date</span>
-              </label>
-              <input
-                type="date"
-                className="input input-bordered"
-                required
-                onBlur={(e) => setDate(e.target.value)}
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Time Slot</span>
-              </label>
-              <select
-                className="input input-bordered"
-                onChange={(e) => setTimeSlot(e.target.value)}
-              >
-                <option>8am. - 12pm.</option>
-                <option>12pm. - 6pm.</option>
-                <option>6pm. - 10pm.</option>
-              </select>
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Address</span>
+                <span className="label-text">shortDescription</span>
               </label>
               <textarea
-                rows={12}
+                placeholder="description"
                 className="input input-bordered"
-                onBlur={(e) => setAddress(e.target.value)}
+                onBlur={(e) => setShortDescription(e.target.value)}
               ></textarea>
             </div>
 
@@ -96,9 +188,6 @@ const AddedAFood = () => {
             </div>
           </form>
         </div>
-		<div>
-			<img src="" alt="" />
-		</div>
       </div>
     </div>
   );

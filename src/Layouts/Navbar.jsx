@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../Hooks/UseAuth";
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, currentUser } = useAuth();
 
   const handleLogout = () => {
     logOut();
@@ -87,7 +87,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end ">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="https://avatars.githubusercontent.com/u/114717482?v=4" />
+              <img src={currentUser?.photoURL} />
             </div>
           </label>
           <div

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/UseAuth";
 import BannerCard from "./BannerCard";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const { user } = useAuth();
@@ -10,17 +11,15 @@ const Banner = () => {
 
   useEffect(() => {
     axiosMethod
-      .get(`/foods?sortField=order_count&sortOrder=desc`)
+      .get(`/foods?sortField=orderCount&sortOrder=desc`)
       .then((res) => {
-        console.log(res.data);
         setTopFoods(res.data);
       });
   }, [axiosMethod, user]);
-  //  console.log(topFoods);
 
   return (
     <>
-      <div className="py-6 dark:bg-gray-800 dark:text-gray-100">
+      <div className="py-6 my-20 dark:bg-gray-800 dark:text-gray-100">
         <div className="container p-4 mx-auto space-y-16 sm:p-10">
           <div className="space-y-4">
             <h3 className="text-2xl font-bold leadi sm:text-5xl">
@@ -39,6 +38,11 @@ const Banner = () => {
               <BannerCard key={food?._id} food={food}></BannerCard>
             ))}
           </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <Link to={"/foods"} className="btn btn-primary my-6 ">
+            All Foods
+          </Link>
         </div>
       </div>
     </>

@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/UseAuth";
+import useAxios from "../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser } = useAuth();
-
+  const axiosMethod = useAxios();
   const [name, setName] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [email, setEmail] = useState(null);
@@ -13,16 +15,40 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const toastId = toast.loading("");
-    try {
-      await createUser(email, password);
-      console.log(email, password, name, photo);
-      console.log("created");
-      toast.success("Successfully Register!", { id: toastId });
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message, { id: toastId });
-    }
+
+    const userInfo = {
+      name,
+      email,
+      photo,
+    };
+    console.log(userInfo);
+    axiosMethod.post("/users", userInfo).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        console.log(res.data);
+        return Swal.fire({
+          title: "Good job",
+          text: "User Created successfully",
+          icon: "success",
+        });
+      }
+      if (
+        !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]).{6,}$/.test(
+          password
+        )
+      ) {
+        return Swal.fire({
+          title: "Oops!",
+          text: "At least one uppercase letter, At least one special character, A minimum length of 6 characters",
+          icon: "error",
+        });
+      }
+    });
+
+    createUser(email, password);
+    console.log(email, password, name, photo).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
