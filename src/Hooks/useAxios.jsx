@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useAuth from "./UseAuth";
 
 const axiosMethod = axios.create({
-  baseURL: "http://localhost:7000",
+  baseURL: "https://the-diner-server-site.vercel.app",
   withCredentials: true,
 });
 const useAxios = () => {

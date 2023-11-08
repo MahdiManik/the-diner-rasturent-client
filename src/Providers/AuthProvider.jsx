@@ -58,9 +58,13 @@ const AuthProvider = ({ children }) => {
       console.log("current", currentUser);
       setIsLoading(false);
       if (!currentUser) {
-        axios.post("http://localhost:7000/logout", loggedUser, {
-          withCredentials: true,
-        });
+        axios.post(
+          "https://the-diner-server-site.vercel.app/logout",
+          loggedUser,
+          {
+            withCredentials: true,
+          }
+        );
       }
     });
 
