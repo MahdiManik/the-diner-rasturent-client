@@ -9,11 +9,19 @@ const MyOrderFoods = () => {
   const [orders, setOrders] = useState([]);
   const { user } = useAuth();
 
+  const [users, setUsers] = useState({});
   useEffect(() => {
-    axiosMethod(`/my-order?email=${user?.email}`).then((res) => {
+    axiosMethod.get(`/users/${user?.email}`).then((res) => {
+      setUsers(res.data);
+    });
+  }, [axiosMethod, user]);
+
+
+  useEffect(() => {
+    axiosMethod(`/my-order?email=${users?.email}`).then((res) => {
       setOrders(res.data);
     });
-  }, [axiosMethod, user?.email]);
+  }, [axiosMethod, users?.email]);
 
   const handleDelete = (id) => {
     axiosMethod.delete(`my-order/${id}`).then((res) => {

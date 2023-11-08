@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Banner from "./Banner";
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
             that tantalizes your taste buds and leaves you craving for more.
           </p>
           <div>
-            <button className="btn btn-primary">All Menus</button>
+            <Link to={'/menus'} className="btn btn-primary">All Menus</Link>
           </div>
         </div>
         <div className="flex-[1] h-[600px] rounded-md overflow-hidden ">

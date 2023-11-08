@@ -5,15 +5,14 @@ import useAxios from "../Hooks/useAxios";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const axiosMethod = useAxios();
 
   const [users, setUsers] = useState({});
-  const axiosMethod = useAxios();
   useEffect(() => {
     axiosMethod.get(`/users/${user?.email}`).then((res) => {
       setUsers(res.data);
     });
   }, [axiosMethod, user]);
-  //  console.log(users);
 
   const handleLogout = () => {
     logOut();

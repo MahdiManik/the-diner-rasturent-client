@@ -13,6 +13,7 @@ import SingleFood from "../Pages/SingleFood";
 import PurchaseFood from "../Pages/PurchaseFood";
 import Banner from "../Pages/Banner";
 import PrivateRoute from "./PrivateRoute";
+import Menus from "../Pages/Menus/Menus";
 
 const routes = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
       {
         path: "blog",
         element: <Blog />,
+      },
+      {
+        path: "menus",
+        element: <Menus />,
       },
       {
         path: "added-a-food",

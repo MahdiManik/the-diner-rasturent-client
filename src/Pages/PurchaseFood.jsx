@@ -9,8 +9,14 @@ const PurchaseFood = () => {
   const axiosMethod = useAxios();
   const { id } = useParams();
 
-  const [food, setFood] = useState({});
+  const [users, setUsers] = useState({});
+  useEffect(() => {
+    axiosMethod.get(`/users/${user?.email}`).then((res) => {
+      setUsers(res.data);
+    });
+  }, [axiosMethod, user]);
 
+  const [food, setFood] = useState({});
   useEffect(() => {
     axiosMethod.get(`/foods/${id}`).then((res) => {
       setFood(res.data);
@@ -91,8 +97,6 @@ const PurchaseFood = () => {
     }
   };
 
-
-
   return (
     <div className=" p-20">
       <h2 className="text-4xl font-bold text-center ">Food Order Page</h2>
@@ -151,6 +155,7 @@ const PurchaseFood = () => {
                 defaultValue={addManager}
                 type="text"
                 name="name"
+                readOnly
                 placeholder="Enter Buyer Name"
                 className="input input-bordered"
               />
@@ -158,11 +163,12 @@ const PurchaseFood = () => {
             <label className="label ">Buyer Email</label>
             <label className="input-group input-group-vertical ">
               <input
-                defaultValue={user?.email}
+                defaultValue={users?.email}
                 type="text"
                 name="email"
                 placeholder="Enter Buyer Email"
                 className="input input-bordered"
+                readOnly
               />
             </label>
           </div>
