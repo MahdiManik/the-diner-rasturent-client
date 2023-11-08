@@ -19,10 +19,6 @@ const useAxios = () => {
       (error) => {
         if (error.response.status === 401 || error.response.status === 403) {
           logOut();
-          if (isLoading) {
-            return <progress className="progress w-56"></progress>;
-          }
-
           navigate("/login");
         }
       }

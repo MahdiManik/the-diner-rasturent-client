@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const BannerCard = ({ food }) => {
   const { foodId, image, name, orderCount, category, price } = food || {};
   return (
-    <div className="flex space-x-6 ">
+    <div className=" md:flex space-x-6 ">
       <img
         alt=""
         className=" flex-shrink-0 object-cover h-60 w-96 mb-4 bg-center rounded-sm dark:bg-gray-500"
