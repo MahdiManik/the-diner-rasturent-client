@@ -1,37 +1,46 @@
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
+import useAxios from "../../Hooks/useAxios";
 
 const Menus = () => {
-  const [menus, setMenus] = useState({});
+  const [menus, setMenus] = useState([]);
+
+  const axiosMethod = useAxios();
 
   useEffect(() => {
-    fetch("/menus.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setMenus(data);
-      });
-  }, []);
+    axiosMethod.get("menus").then((res) => {
+      setMenus(res.data);
+    });
+  }, [axiosMethod]);
 
   console.log(menus);
 
   return (
-    <section className="dark:bg-gray-800 dark:text-gray-100">
+    <section className="dark:bg-gray-800 dark:text-gray-100 py-10 my-10">
       <div className="container mx-auto p-6 overflow-x-auto">
         <table className="w-full">
-          <div>
+          <thead>
             <tr>
-              <div>
-                <h3>The-Diner All Foods Menu</h3>
-                <p></p>
-              </div>
+              <th></th>
+              <th scope="col">
+                <h2 className="px-2 text-xl font-bold pb-10">Number</h2>
+              </th>
+              <th scope="col">
+                <h2 className="px-2 text-xl font-bold pb-10">Name</h2>
+              </th>
+              <th scope="col">
+                <h2 className="px-2 text-xl font-bold pb-10">Category</h2>
+              </th>
+              <th scope="col">
+                <h2 className="px-2 text-xl font-bold pb-10">Price</h2>
+              </th>
             </tr>
-          </div>
-          <div>
+          </thead>
+          <tbody className="space-y-6  text-center divide-y divide-gray-700">
             {menus.map((menu) => (
               <Menu key={menu?._id} menu={menu}></Menu>
             ))}
-          </div>
+          </tbody>
         </table>
       </div>
     </section>
