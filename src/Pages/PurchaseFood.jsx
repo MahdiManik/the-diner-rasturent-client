@@ -9,13 +9,6 @@ const PurchaseFood = () => {
   const axiosMethod = useAxios();
   const { id } = useParams();
 
-  const [users, setUsers] = useState({});
-  useEffect(() => {
-    axiosMethod.get(`/users/${user?.email}`).then((res) => {
-      setUsers(res.data);
-    });
-  }, [axiosMethod, user]);
-
   const [food, setFood] = useState({});
   useEffect(() => {
     axiosMethod.get(`/foods/${id}`).then((res) => {
@@ -163,7 +156,7 @@ const PurchaseFood = () => {
             <label className="label ">Buyer Email</label>
             <label className="input-group input-group-vertical ">
               <input
-                defaultValue={users?.email}
+                defaultValue={user?.email}
                 type="text"
                 name="email"
                 placeholder="Enter Buyer Email"

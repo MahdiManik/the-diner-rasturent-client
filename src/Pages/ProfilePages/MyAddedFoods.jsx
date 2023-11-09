@@ -8,18 +8,18 @@ const MyAddedFoods = () => {
   const [food, setFood] = useState([]);
   const { user } = useAuth();
 
-  const [users, setUsers] = useState({});
-  useEffect(() => {
-    axiosMethod.get(`/users/${user?.email}`).then((res) => {
-      setUsers(res.data);
-    });
-  }, [axiosMethod, user]);
+  //  const [users, setUsers] = useState({});
+  //  useEffect(() => {
+  //    axiosMethod.get(`/users/${user?.email}`).then((res) => {
+  //      setUsers(res.data);
+  //    });
+  //  }, [axiosMethod, user]);
 
   useEffect(() => {
-    axiosMethod(`/add-food?email=${users?.email}`).then((res) => {
+    axiosMethod(`/add-food?email=${user?.email}`).then((res) => {
       setFood(res.data);
     });
-  }, [axiosMethod, users?.email]);
+  }, [axiosMethod, user?.email]);
   console.log(food);
   return (
     <div>

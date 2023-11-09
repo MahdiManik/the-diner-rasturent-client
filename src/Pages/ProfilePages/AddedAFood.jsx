@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../Hooks/UseAuth";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
@@ -6,12 +6,6 @@ import Swal from "sweetalert2";
 const AddedAFood = () => {
   const { user } = useAuth();
   const axiosMethod = useAxios();
-  const [users, setUsers] = useState({});
-  useEffect(() => {
-    axiosMethod.get(`/users/${user?.email}`).then((res) => {
-      setUsers(res.data);
-    });
-  }, [axiosMethod, user]);
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -19,7 +13,7 @@ const AddedAFood = () => {
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [addedBy, setAddedBy] = useState("");
-  const email = users?.email;
+  const email = user?.email;
   const [orderCount, setOrderCount] = useState("");
   const [price, setPrice] = useState("");
   const [shortDescription, setShortDescription] = useState("");
@@ -158,7 +152,7 @@ const AddedAFood = () => {
               </label>
               <input
                 required
-                defaultValue={users?.displayName}
+                defaultValue={user?.displayName}
                 readOnly
                 type="addedBy"
                 className="input input-bordered"
@@ -171,7 +165,7 @@ const AddedAFood = () => {
               </label>
               <input
                 required
-                defaultValue={users?.email}
+                defaultValue={user?.email}
                 readOnly
                 type="email"
                 className="input input-bordered"

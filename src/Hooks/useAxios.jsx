@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import useAuth from "./UseAuth";
 
 const axiosMethod = axios.create({
-  baseURL: "https://the-diner-server-site.vercel.app",
+  baseURL: "http://localhost:7000",
   withCredentials: true,
 });
 const useAxios = () => {
   const navigate = useNavigate();
-  const { logOut, isLoading } = useAuth();
+  const { logOut } = useAuth();
   useEffect(() => {
     axiosMethod.interceptors.response.use(
       (res) => {
@@ -23,7 +23,7 @@ const useAxios = () => {
         }
       }
     );
-  }, [logOut, navigate, isLoading]);
+  }, [logOut, navigate]);
   return axiosMethod;
 };
 

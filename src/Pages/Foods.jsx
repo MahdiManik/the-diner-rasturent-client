@@ -32,6 +32,16 @@ const AllFoodItems = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+
+    axiosMethod.get(`/foods/${search}`).then((res) => {
+      setAllFoods(res.data);
+    });
+    e.target.reset();
+  };
+
   useEffect(() => {
     axiosMethod
       .get(`/foods?page=${currentPage}&size=${itemsPerPage}`)
@@ -62,14 +72,19 @@ const AllFoodItems = () => {
             </p>
             <div className="mt-8">
               <div className="form-control ">
-                <div className="">
+                <form onSubmit={handleSearch} className="">
                   <input
+                    name="search"
                     type="text"
                     placeholder="Search Food with food category"
                     className="input input-bordered w-full"
                   />
-                  <button className="btn btn-primary mt-5">Search Food</button>
-                </div>
+                  <input
+                    className="btn btn-primary mt-5"
+                    type="submit"
+                    value="Search Food"
+                  />
+                </form>
               </div>
             </div>
           </div>

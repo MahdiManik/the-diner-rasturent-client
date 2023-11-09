@@ -1,50 +1,25 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import toast from "react-hot-toast";
 import useAuth from "../Hooks/UseAuth";
 import useAxios from "../Hooks/useAxios";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-  const { user, Login, googleLogin, profileUpdate } = useAuth();
+  const { Login, googleLogin, profileUpdate } = useAuth();
+  const location = useLocation();
   const axiosMethod = useAxios();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const photo = user?.photoURL;
-  const location = useLocation();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    const toastId = toast.loading("");
-    try {
-      await Login(email, password).then((res) => {
-        console.log(email, password);
-        const loggedUser = res.user;
-        console.log(loggedUser);
-        const user = { email };
-        console.log(user);
-        axiosMethod.post("/jwt", user).then((res) => {
-          console.log(res.data);
-        });
-        toast.success("Successfully Logged!", { id: toastId });
-        navigate(location?.state ? location.state : "/");
-      });
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message, { id: toastId });
-    }
-  };
-
-  const handleGoogleLogin = () => {
-    googleLogin()
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    Login(email, password)
       .then((result) => {
-        profileUpdate(name, photo, email).then((result) =>
-          console.log("profile updated", result)
-        );
-        console.log(result.user);
+        console.log(result);
+
         Swal.fire({
           title: "Great job!",
           text: "Sign-in successful.",
@@ -54,6 +29,44 @@ const Login = () => {
           imageHeight: 200,
           imageAlt: "Welcome image",
         });
+
+        const user = { email };
+
+        axiosMethod
+          .post("/jwt", user, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res?.data?.success) {
+              navigate(location?.state ? location.state : "/");
+            }
+          });
+      })
+
+      .catch((err) => console.log(err.message));
+    form.reset();
+  };
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        console.log(result.user);
+        profileUpdate().then((result) =>
+          console
+            .log("profile updated", result)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+        );
+        Swal.fire({
+          title: "Great job!",
+          text: "Sign-in successful.",
+          imageUrl:
+            "https://images.pexels.com/photos/5898313/pexels-photo-5898313.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "Welcome image",
+        });
+
         navigate(location?.state ? location.state : "/");
       })
       .catch((err) => console.error(err.message));
@@ -61,83 +74,77 @@ const Login = () => {
 
   return (
     <>
-      <Link to={"/"} className="btn btn-outline btn-sm ml-16 mt-4">
+      <Link to={"/"} className="btn btn-primary mt-6 ml-12">
         Go home
       </Link>
-      <div className=" w-full max-w-[1200px] mx-auto my-16  bg-white">
-        <h1 className="text-5xl text-center text-[#000000] font-bold">
-          Login now!
-        </h1>
-        <div className="md:flex mx-6 mt-10 justify-center items-center gap-6">
-          <div className="flex-[1] mb-6 h-[600px] rounded-md overflow-hidden ">
+      <div className="hero min-h-screen">
+        <div className="hero-content flex-col lg:flex-row gap-6">
+          <div className="text-center lg:text-left">
             <img
-              className="w-full h-full object-cover"
-              src="https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg"
+              src="https://media.istockphoto.com/id/905301022/photo/login-screen-username-and-password-in-internet-browser-on-computer-screen.webp?s=1024x1024&w=is&k=20&c=IoZ47fIGm_-qnQtrUgvWmUOOabKvE61rkWcy6HMXVzk="
               alt=""
             />
           </div>
-          <div className="flex-[1] mb-6">
-            <div className="flex flex-col w-full">
-              <div className="text-center lg:text-left">
-                <p className="text-red-600 "></p>
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl border-2">
+            <form onSubmit={handleLogin} className="card-body">
+              <h1 className="text-3xl font-bold py-5 text-black text-center">
+                Login
+              </h1>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-black">
+                    Email
+                  </span>
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Your email"
+                  className="input  input-bordered"
+                  required
+                />
               </div>
-              <div className="card-body  h-[600px] rounded-md overflow-hidden  shadow-2xl">
-                <form onSubmit={handleLogin} className="card-body bg-white">
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Email</span>
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="email"
-                      className="input input-bordered"
-                      required
-                      onBlur={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Password</span>
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="password"
-                      className="input input-bordered"
-                      required
-                      onBlur={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-control mt-6">
-                    <button
-                      type="submit"
-                      className="flex justify-center items-center gap-2 mt-auto btn btn-primary "
-                    >
-                      Login
-                    </button>
-                  </div>
-                </form>
-                <p className="pb-8 px-6 text-[#041e42] bg-white">
-                  Do Not have an account?
-                  <Link
-                    className="ml-2 mt-auto btn btn-primary"
-                    to={"/register"}
-                  >
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold ">
+                    Confirm Password
+                  </span>
+                </label>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="Your password"
+                  className="input   input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control mt-6">
+                <input
+                  className="py-1 px-5 btn btn-primary"
+                  type="submit"
+                  value="Login"
+                />
+              </div>
+              <div className="">
+                <p className="text-center text-black py-5">Or Sign In with</p>
+                <div
+                  onClick={handleGoogleLogin}
+                  className="flex justify-center btn btn-primary items-center gap-5  
+				"
+                >
+                  SignIn with google
+                  <span className=" rounded-full p-2 bg-white text-xl">
+                    <FcGoogle />
+                  </span>
+                </div>
+                <p className="text-center py-5">
+                  New in Our Site?{" "}
+                  <Link className="btn btn-primary" to={"/register"}>
                     Register
                   </Link>
                 </p>
-                <div className=" flex justify-center items-center bg-white">
-                  <button
-                    onClick={handleGoogleLogin}
-                    className="flex items-center gap-2 px-8 mt-auto btn btn-primary"
-                  >
-                    <span className="text-3xl">
-                      <FcGoogle></FcGoogle>
-                    </span>
-                    <p className="font-bold text-2xl"></p> Login with google
-                  </button>
-                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

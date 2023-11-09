@@ -35,13 +35,12 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  const profileUpdate = (name, email, photo) => {
-    console.log(name, email, photo);
+  const profileUpdate = (name, photo) => {
+    console.log(name, photo);
     setIsLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
-      email: email,
     });
   };
 
@@ -52,22 +51,29 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       const userEmail = currentUser?.email || user?.email;
       const loggedUser = { email: userEmail };
-      console.log("current", currentUser);
+      setUser(currentUser);
+      console.log("current User", currentUser);
       setIsLoading(false);
-      if (!currentUser) {
-        axios.post(
-          "https://the-diner-server-site.vercel.app/logout",
-          loggedUser,
-          {
+      if (currentUser) {
+        axios
+          .post("http://localhost:7000/jwt", loggedUser, {
             withCredentials: true,
-          }
-        );
+          })
+          .then((res) => {
+            console.log("token response in auth provider", res.data);
+          });
+      } else {
+        axios
+          .post("http://localhost:7000/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("logout api", res.data);
+          });
       }
     });
-
     return () => {
       return unsubscribe();
     };
