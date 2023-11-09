@@ -14,6 +14,7 @@ import PurchaseFood from "../Pages/PurchaseFood";
 import Banner from "../Pages/Banner";
 import PrivateRoute from "./PrivateRoute";
 import Menus from "../Pages/Menus/Menus";
+import Comment from "../Pages/Comment";
 
 const routes = createBrowserRouter([
   {
@@ -70,6 +71,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SingleFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "comment",
+        element: (
+          <PrivateRoute>
+            <Comment />
           </PrivateRoute>
         ),
       },

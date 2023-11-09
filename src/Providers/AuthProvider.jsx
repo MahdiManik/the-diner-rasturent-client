@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
       setIsLoading(false);
       if (currentUser) {
         axios
-          .post("http://localhost:7000/jwt", loggedUser, {
+          .post("https://the-diner-server-site.vercel.app/jwt", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         axios
-          .post("http://localhost:7000/logout", loggedUser, {
+          .post("https://the-diner-server-site.vercel.app/logout", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {

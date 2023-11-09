@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Banner from "./Banner";
+import Comment from "./Comment";
 
 const Home = () => {
   return (
@@ -18,7 +19,9 @@ const Home = () => {
             that tantalizes your taste buds and leaves you craving for more.
           </p>
           <div>
-            <Link to={'/menus'} className="btn btn-primary">All Menus</Link>
+            <Link to={"/menus"} className="btn btn-primary">
+              All Menus
+            </Link>
           </div>
         </div>
         <div className="flex-[1] h-[600px] rounded-md overflow-hidden ">
@@ -30,6 +33,7 @@ const Home = () => {
         </div>
       </div>
       <Banner></Banner>
+      <Comment></Comment>
     </div>
   );
 };
