@@ -1,8 +1,25 @@
-# React + Vite
+# About my project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Top six food  show on home page.
+- all page a searce option, and this field searce with food name .
+- When User click in my cart on menu, show product details
+- user can be delete her ordered food.
+-login and register
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## used language
+
+- mern stack,
+- tailwind,
+- daisy ui,
+
+## used Tecnologies 
+
+- axios with interceptor for data fetching,
+- json web token, 
+
+
+## 🔗 Live Links
+
+https://the-diner-project.web.app/
